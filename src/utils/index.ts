@@ -1,3 +1,5 @@
 export * from './response';
 export * from './bcrypt'
-export * from './statusCodes'
+export * from './email'
+export * from './getIpAddress'
+export * from './getUserAgent'

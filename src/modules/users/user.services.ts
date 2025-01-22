@@ -1,13 +1,14 @@
 import { NextFunction } from "express";
 import { User, IUsers } from "./user.model";
-import { hashPassword, httpStatusCodes, ResponsePacket } from "../../utils";
+import { hashPassword, ResponsePacket } from "src/utils";
+import { httpStatusCodes } from "src/libs";
 
 export const isEmailExistService = async (
   email: any,
   next: NextFunction
 ): Promise<boolean | undefined | void> => {
   try {
-    const isUser = await User.findOne({email: email});
+    const isUser = await User.findOne({ email: email });
 
     return !!isUser;
   } catch (error) {
@@ -21,7 +22,8 @@ export const createUserService = async (
 ): Promise<Record<string, any>> => {
   try {
     const password = await hashPassword(data?.password as string);
-    if (!password) throw new Error("Error: An error occurred while hashing the password");
+    if (!password)
+      throw new Error("Error: An error occurred while hashing the password");
 
     data.password = password;
 

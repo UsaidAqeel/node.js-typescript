@@ -1,5 +1,5 @@
 
-import { httpStatusCodes } from '../../utils';
+import { httpStatusCodes } from 'src/libs';
 import { NextFunction, Request, Response } from 'express';
 import { check, validationResult } from 'express-validator';
 

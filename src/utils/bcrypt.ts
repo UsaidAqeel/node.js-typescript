@@ -4,8 +4,8 @@ import { BCRYPT_SALT } from "./../constant";
 /**
  * Hashes a password using bcrypt.
  *
- * @param password - The plaintext password to hash.
- * @returns The hashed password as a string, or null if an error occurs.
+ * @param {string} password - The plaintext password to hash.
+ * @returns {Promise<string | null>} The hashed password as a string, or null if an error occurs.
  */
 
 export const hashPassword = async (
@@ -25,9 +25,9 @@ export const hashPassword = async (
 
 /**
  * Compare a password using bcrypt.
- * @param password The plaintext password.
- * @param hashPassword The hash password
- * @returns A promise that resolves to true if passwords match, otherwise false
+ * @param {string} password The plaintext password.
+ * @param {string} hashPassword The hash password
+ * @returns {Promise<boolean>} A promise that resolves to true if passwords match, otherwise false
  */
 
 export const comparePassword = async (
