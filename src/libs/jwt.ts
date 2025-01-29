@@ -7,11 +7,15 @@ export const verifyJWT = (token: string, next: NextFunction): any => {
     const decodeJWT: any = jwt.verify(token, JWT_SECRET_KEY);
 
     if (!decodeJWT) {
-      throw new Error("Invalid token");
+      const err = new Error("Invalid token");
+      err.statusCode = 401;
+      next(err);
     }
     return decodeJWT?.user;
   } catch (error) {
-    throw new Error("Invalid token");
+    const err = new Error("Invalid token");
+    err.statusCode = 401;
+    next(err);
   }
 };
 
