@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import { dbConnect } from "../config/db/db.config";
 import userRoutes from "./../modules/users/user.routes";
 import morgan from "morgan";
+import { emailLogRouter } from "src/modules/emails/emailLogs.routes";
 
 dotenv.config();
 const app = express();
@@ -21,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
-app.use(userRoutes);
+app.use(userRoutes, emailLogRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
