@@ -11,3 +11,5 @@ export const BCRYPT_SALT: string = process.env.BCRYPT_SALT || '10';
 export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY as string;
 
 export const FROM_EMAIL = process.env.FROM_EMAIL as string;
+
+export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
