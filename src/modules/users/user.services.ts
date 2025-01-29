@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import { User, IUsers } from "./user.model";
-import { hashPassword, ResponsePacket } from "src/utils";
+import { comparePassword, hashPassword, ResponsePacket } from "src/utils";
 import { httpStatusCodes } from "src/libs";
 
 export const isEmailExistService = async (
@@ -44,6 +44,41 @@ export const createUserService = async (
     return ResponsePacket.failure(
       httpStatusCodes.NOT_ACCEPTABLE,
       "Failed to create user. Please try again.",
+      null
+    );
+  }
+};
+
+export const loginUserSerivce = async (body: {
+  password: string;
+  email: string;
+}): Promise<Record<string, any>> => {
+  try {
+    const user = await User.findOne({
+      email: body.email,
+    });
+
+    const userPassword = user?.password as string;
+    const isPasswordMatch = await comparePassword(body.password, userPassword);
+
+    if (!isPasswordMatch) {
+      return ResponsePacket.failure(
+        httpStatusCodes.UNAUTHORIZED,
+        "Invalid Email or Password",
+        null
+      );
+    }
+
+    return ResponsePacket.success(
+      httpStatusCodes.OK,
+      "Login Success",
+      null
+    );
+  } catch (error) {
+    console.error("Error: Login user service", error);
+    return ResponsePacket.failure(
+      httpStatusCodes.INTERNAL_SERVER_ERROR,
+      "Failed to login user. Please try again.",
       null
     );
   }
